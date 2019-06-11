@@ -1,0 +1,72 @@
+{"properties": [
+  {
+    "name": "spring.datasource.initial-size",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.initial-size'"
+  },
+  {
+    "name": "spring.datasource.min-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.min-idle'"
+  },
+  {
+    "name": "spring.datasource.max-wait",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.max-wait'"
+  },
+  {
+    "name": "spring.datasource.max-idle",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.datasource.max-idle'"
+  },
+  {
+    "name": "hibernate.format_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.format_sql'"
+  },
+  {
+    "name": "hibernate.dialect",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.dialect'"
+  },
+  {
+    "name": "hibernate.show_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.show_sql'"
+  },
+  {
+    "name": "hibernate.ddl.auto",
+    "type": "java.lang.String",
+    "description": "A description for 'hibernate.ddl.auto'"
+  },
+  {
+    "name": "spring.jpa.format_sql",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.format_sql'"
+  },
+  {
+    "name": "spring.jpa.hibernate.naming-strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.naming-strategy'"
+  },
+  {
+    "name": "spring.jpa.hibernate.ejb.naming_strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.ejb.naming_strategy'"
+  },
+  {
+    "name": "spring.jpa.hibernate.physical_naming_strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.physical_naming_strategy'"
+  },
+  {
+    "name": "spring.jpa.hibernate.implicit_naming_strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.implicit_naming_strategy'"
+  },
+  {
+    "name": "spring.jpa.hibernate.naming-strategy",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.jpa.hibernate.naming-strategy'"
+  }
+]}

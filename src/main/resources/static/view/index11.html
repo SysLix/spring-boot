@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>实时监测</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta content="" name="description"/>
+    <meta content="" name="author"/>
+    <!-- BEGIN THEME STYLES -->
+    <link th:href="@{/static/layout/css/liMarquee.css}" rel="stylesheet" type="text/css"/>
+    <!--  <link th:href="@{/static/global/plugins/font-awesome/css/font-awesome.min.css}" rel="stylesheet" type="text/css"/>
+     --><!-- END THEME STYLES -->
+<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+	}
+	body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td
+ 	{
+ 		font-family:Microsoft YaHei;
+	   	font-size: 20px;
+        font-style: normal;
+        font-weight: normal;
+        color: #eee;
+ 	}
+	li{
+		list-style: none;
+	}
+	.bg{
+		background-image: url(/static/pages/img/bg.png);
+		background-repeat: no-repeat;
+	}
+	.fl{
+		float: left;
+	}
+	.fr{
+		float: right;
+	}
+	/* .maquee li{
+		background-image: url(/static/pages/img/border.png);
+		background-repeat: no-repeat;
+		width:420px;
+		height:192px;
+		margin-bottom: 1%;
+	} */
+	.successli{
+		background-image: url(/static/pages/img/border.png);
+		background-repeat: no-repeat;
+		width:420px;
+		height:192px;
+		margin-bottom: 1%;
+	}
+	.impotenli{
+		background-image: url(/static/pages/img/border1.png);
+		background-repeat: no-repeat;
+		width:420px;
+		height:192px;
+		margin-bottom: 1%;
+	}
+	.smcg{
+		background-image: url(/static/pages/img/cg.png);
+		background-repeat: no-repeat;
+		width:145px;
+		height:30px;
+	}
+	.bnpp{
+		background-image: url(/static/pages/img/bnpp.png);
+		background-repeat: no-repeat;
+		width:145px;
+		height:30px;
+	}
+	.zdry{
+		background-image: url(/static/pages/img/zdry.png);
+		background-repeat: no-repeat;
+		width:145px;
+		height:30px;
+	}
+	.greend{
+		display:block;
+		width:16px;
+		height:16px;
+		border-radius: 50%;
+		background-color: rgb(35, 245, 161);
+		
+	}
+	.whited{
+		display:block;
+		width:16px;
+		height:16px;
+		border-radius: 50%;
+		background-color: white;
+		
+	}
+	.huang{
+		display:block;
+		width:16px;
+		height:16px;
+		border-radius: 50%;
+		background-color: rgb(244, 152, 24);
+		
+	}
+	.rad{
+		display:block;
+		width:8px;
+		height:8px;
+		border-radius: 50%;
+		background-color: white;
+		position: absolute;
+		/* z-index: 11; */
+		bottom:20%;
+		left:12%;
+		float: left;
+	}
+	.rad1{
+		display:block;
+		width:8px;
+		height:8px;
+		border-radius: 50%;
+		background-color: white;
+		position: absolute;
+		/* z-index: 11; */
+		bottom:20%;
+		left:65%;
+		float: left;
+	}
+	.radiu{
+		display:block;
+		width:65px;
+		height:65px;
+		border-radius: 50%;
+		background-color: white;
+		position: absolute;
+		/* z-index: 11; */
+		bottom:42%;
+		left:42%;
+	}
+	.maquee{ overflow:hidden; margin:0 auto;}
+	.hidden{
+		display: none;
+	}
+	.dengshan{
+		background-image: url(/static/pages/img/deng.png);
+		background-repeat: no-repeat;
+		width:19px;
+		height:19px;
+		
+	}
+	.deng li{
+		float:left;
+		width:19px;
+		height:19px;
+		margin-top: 8%;
+	}
+	.deng li:nth-child(1){
+		margin-left: 3%;
+	}
+	.deng li:nth-child(2){
+		margin-left: 12%;
+	}
+	.deng li:nth-child(3){
+		margin-left: 12%;
+	}
+	.deng li:nth-child(4){
+		margin-left: 13%;
+	}
+	.deng2 li{
+		float:left;
+		width:19px;
+		height:19px;
+		margin-top: 11%;
+	}
+	.deng2 li:nth-child(1){
+		margin-left: 2%;
+	}
+	.deng2 li:nth-child(2){
+		margin-left: 13%;
+	}
+	.deng2 li:nth-child(3){
+		margin-left: 14%;
+	}
+	.deng2 li:nth-child(4){
+		margin-left: 14%;
+	}
+	.header{
+	 	-webkit-animation:rotateImg 1s linear infinite;
+		background-image: url(/static/pages/img/yuan.png);
+		background-repeat: no-repeat;
+		width:60px;
+		height:60px;
+	}
+	@keyframes rotateImg {
+  0% {transform : rotate(0deg);}
+  100% {transform : rotate(360deg);}
+}
+
+@-webkit-keyframes rotateImg {
+    0%{-webkit-transform : rotate(0deg);}
+  100%{-webkit-transform : rotate(360deg);}
+  0%{-ms-transform : rotate(0deg);}
+  100%{-ms-transform : rotate(360deg);}
+}
+</style>
+</head>
+<body class="content" style="width:1920px;height:1080px;/* padding-left: 1%; */">
+
+<div class="bg" style="width:100%;height:100%;position: relative;">
+<div class="header"  style="width:60px;height:60px;position: absolute;top:48%;left:0.4%;">
+	
+</div>
+<div class="" style="width:100%;height:8%;/* background-color: red; */">
+	<div class="" style="width:100%;height:100%;font-size: 40px;padding-left: 0%;/* background-color: red; */">
+		<div class="fl" style="width:33%;height:100%;font-size: 40px;padding-left: 0%;/* background-color: white; */">
+			<div class="" style="width:24%;height:40%;margin-left: 40%;margin-top: 5%;/* background-color: white; */">
+				<ul id="deng1" class="deng" style="width:100%;height:100%;">
+					<li id="s1"></li>
+					<li id="s2"></li>
+					<li id="s3"></li>
+					<li id="s4"></li>
+				</ul>
+			</div>
+		</div>
+		<div class="fl" style="width:35%;height:100%;font-size: 40px;padding-left: 0%;text-align: center;padding-top: 1%;">
+			实时监测系统
+		</div>
+		<div class="fl" style="width:30%;height:100%;font-size: 40px;padding-left: 0%;/* background-color: red; */">
+			<div class="" style="width:24%;height:40%;margin-left: 39%;margin-top: 5%;/* background-color: white; */">
+				<ul id="deng2" class="deng2" style="width:100%;height:100%;">
+					<li id="p1"></li>
+					<li id="p2"></li>
+					<li id="p3"></li>
+					<li id="p4"></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="" style="width:100%;height:92%;/* background-color: red; */">
+	
+	<div class="fl" style="width:71%;height:84%;margin-top: 4%;margin-left: 4%;/* background-color: green; */">
+		<object type='application/x-vlc-plugin' id='vlc' events='True' style="width:1363px;height:834px;padding-left: 4px;"
+			       classid='clsid:9BE31822-FDAD-461B-AD51-BE1D1C159921' codebase="http://downloads.videolan.org/pub/videolan/vlc/latest/win32/axvlc.cab"> 
+			          <param name='mrl' value='rtsp://admin:Recognition@192.168.0.124:554/h264/ch1/main/av_stream' /> 
+			          <param name='volume' value='50' /> 
+			          <param name='autoplay' value='true' /> 
+			          <param name='loop' value='false' /> 
+			          <param name='fullscreen' value='false' /> 
+			         
+	</object>
+	</div>
+	<div class="fl" style="width:20%;height:97%;/* background-color: blue; */margin-left: 4%;">
+		<div class="maquee" style="width:100%;height:100%;">
+				<ul style="width:100%;height:auto;overflow:hidden;" id="record">
+					<!-- <li class="successli" style="">
+						<div style="width:100%;height:100%;">
+							<p class="smcg" style="width:100%;height:15%;padding-left: 3%;"><span class="greend fl" style="margin-left: 4%;margin-top: 1%; "></span><span style="padding-left:5%; ">扫描成功</span></p>
+							<div style="width:100%;height:63%;margin-top: 1%;/* background-color: blue; */">
+								<div class="fl"  style="width:27%;height:100%;margin-left: 1%;margin-right: 1%;">
+									<div class="fr"   style="width:88%;height:100%;background-color: green;">
+										<img alt="" src="">
+									</div>
+								</div>
+								<div class="fl" style="width:27%;height:100%;margin-left: 1%;margin-right: 1%;">
+									<div class="fl"   style="width:88%;height:100%; background-color: red;">
+										<img alt="" src="">
+									</div>
+								</div>
+								<div class="fl" style="width:36%;height:100%;">
+									<p style="width:100%;height:20%;"><span style="color:rgba(255,255,255,0.8)">相似度:</span></p>
+									<p style="width:100%;height:35%;"><span style="font-size: 38px;">99.99%</span></p>
+									<p style="width:100%;height:20%;"><span>男</span><span style="margin-left: 20%;">22岁</span></p>
+									<p style="width:100%;height:23%;"><span>admin</span></p>
+								</div>
+							</div>
+							<div style="width:100%;height:12%;/* background-color: green; */">
+								<p><span style="margin-left: 3%;">A-03摄像头</span><span style="margin-left: 25%;">2019-5-9 11:15:31</span></p>
+						
+							</div>
+						</div>
+					</li> -->
+					
+				</ul>
+			</div>
+	</div>
+</div>
+</div>
+	
+<input type="hidden" id="refreshTime" th:value="${arrays}">
+<!-- <span class="hidden" id="refreshTime"></span> -->
+<!-- <div style="width:150px;height:150px;">
+	<img style="width:150px;height:150px;" alt="" src="pufaDashboard/picture1?filename=bg.png&caremaId=21">
+</div> -->
+<script th:src="@{/static/global/plugins/echarts/echarts3.8.5.js}"></script>
+<script th:src="@{/static/global/plugins/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/global/plugins/bootstrap/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{/static/common/common-ajax.js}" type="text/javascript"></script>
+<script th:src="@{/static/common/Global.js}" type="text/javascript"></script>
+<script th:src="@{/static/global/plugins/echarts/echarts-tooltip-carousel.js}" type="text/javascript"></script>
+<script type="text/javascript" th:src="@{/static/global/plugins/layer/layer.min.js}"></script>
+<script type="text/javascript" th:src="@{/static/layout/scripts/jquery.liMarquee.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.animateNumber.js}"></script>
+<script type="text/javascript" th:src="@{/static/js/jquery.animateNumber.min.js}"></script>
+<script type="text/javascript"
+		src="https://webapi.amap.com/maps?v=1.4.10&key=9639cffe38a47038344aaf13df2dda84"></script>
+	<!-- <script th:src="@{/static/js/district.js}"></script> -->
+<script type="text/javascript" th:src="@{/static/layout/scripts/jquery.nicescroll.min.js}"></script><!-- 处理滚动条在其他浏览器不兼容问题  -->
+<script th:src="@{/static/js/parabola.js}"></script>
+ <script type="text/javascript" src="/static/ckplayer/ckplayer.js" charset="utf-8"></script>
+<script type="text/javascript" src="/static/ckplayer/ckplayer/ckplayer.js" charset="utf-8"></script>
+</body>
+<script type="text/javascript">
+var index1 = 0;
+var index = 0;
+var showVideo = function(){
+	
+	index = index % 4;
+	$("#deng1 li").removeClass("dengshan");
+	$("#s" + (index % 4 + 1) +"").addClass("dengshan");
+	index++;
+};
+var showVideo1 = function(){
+	
+	index1 = index1 % 4;
+	$("#deng2 li").removeClass("dengshan");
+	$("#p" + (index1 % 4 + 1) +"").addClass("dengshan");
+	index1++;
+};
+var flag = setInterval(showVideo, 3000);
+var flag1 = setInterval(showVideo1, 3000);
+</script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	loadData();
+	$(".content").niceScroll({cursorborder:"",cursorcolor:"#F5F5F5",boxzoom:true,cursoropacitymax:0.5}); 
+	
+});
+function autoScroll(obj){ 
+  	//autoline();
+	$(obj).find("#record").animate({  
+		marginTop : "-192px"  
+	},500,function(){  
+		$(this).css({marginTop : "0px"}).find("li:first").appendTo(this);  
+	});
+} 
+
+var timer1;
+function loadData(){
+	
+	/**
+	 * 
+	 * 获取当前时间
+	 */
+	function getNow(s) {
+	    return s < 10 ? '0' + s: s;
+	}
+
+	var myDate = new Date();
+	//获取当前年
+	var year=myDate.getFullYear();
+	//获取当前月
+	var month=myDate.getMonth()+1;
+	//获取当前日
+	var date=myDate.getDate(); 
+	var h=myDate.getHours();       //获取当前小时数(0-23)
+	var m=myDate.getMinutes();     //获取当前分钟数(0-59)
+	var s=myDate.getSeconds();  
+
+	var currnttime=year+'-'+getNow(month)+"-"+getNow(date)+" "+getNow(h)+':'+getNow(m)+":"+getNow(s);
+	currnttime='2019-05-22 14:19:47';
+	var refreshTime = $("#refreshTime").val();
+	if(refreshTime != ''){
+		currnttime = refreshTime;
+	}
+	debugger;
+	var caremaId = 21;
+
+
+const ajax = new $ajax('/pufaDashboard/getCameraData1/'+caremaId+'/'+ currnttime, function (data) {
+	debugger;
+	 $("#refreshTime").val(data.refreshTime);
+	 console.log("12345:" + data);
+	 console.log(data.jsonObj);
+    var borderbg = "successli";
+    var textcon = "";
+    var ppcon = "";
+    var ddcon = "";
+    //$("#record li").remove();
+	 if (data.num > 0) {
+		 for (var i = 0; i < data.num; i++) {
+			 if(data.jsonObj.person[i] == 2){
+				 borderbg = "successli";
+				 ppcon = "smcg";
+				 textcon = "匹配成功";
+				 
+				 ddcon = "greend";
+			 }else if(data.jsonObj.person[i] == 21){
+				 borderbg = "impotenli";
+				 ppcon = "zdry";
+				 textcon = "重点人员";
+				 ddcon = "huang";
+			 }else if(data.jsonObj.oldimg[i] == ""){
+				 borderbg = "successli";
+				 ppcon = "bnpp";
+				 textcon = "不能匹配";
+				 ddcon = "whited";
+			 }
+			 
+			 
+			 var contents ='<li class='+ borderbg +'>'
+				 + '<div style="width:100%;height:100%;">'
+				 + '<p class="'+ ppcon +'" style="width:100%;height:15%;padding-left: 3%;"><span class="'+ ddcon +' fl" style="margin-left: 4%;margin-top: 1%; "></span><span style="padding-left:5%; ">'+ textcon +'</span></p>'
+				 + '<div style="width:100%;height:63%;margin-top: 1%;">'
+				 + '<div class="fl"  style="width:27%;height:100%;margin-left: 1%;margin-right: 1%;">'
+				 + '<div class="fr"   style="width:88%;height:100%;">'
+				 + '<img style="width:100%;height:100%;" alt="" src="pufaDashboard/picture1?caremaId='+ caremaId +'&filename='+ data.jsonObj.newimg[i] +'">'
+				 + '	</div>'
+				 + '</div>'
+				 + '<div class="fl" style="width:27%;height:100%;margin-left: 1%;margin-right: 1%;">'
+				 + '<div class="fl"   style="width:88%;height:100%; ">'
+				 + '<img style="width:100%;height:100%;" alt="" src="pufaDashboard/picture?caremaId='+ caremaId +'&filename='+ data.jsonObj.oldimg[i] +'">'
+				 + '</div>'
+				 + '</div>'
+				 + '<div class="fl" style="width:36%;height:100%;">'
+				 + '<p style="width:100%;height:20%;"><span style="color:rgba(255,255,255,0.8)">相似度:</span></p>'
+				 + '<p style="width:100%;height:35%;"><span style="font-size: 38px;">'+ data.jsonObj.degree[i] +'%</span></p>'
+				 + '<p style="width:100%;height:20%;"><span>'+ data.jsonObj.sex[i] +'</span><span style="margin-left: 20%;">'+ data.jsonObj.age[i] +'</span><span>岁</span></p>'
+				 + '<p style="width:100%;height:23%;"><span>'+ data.jsonObj.name[i] +'</span></p>'
+				 + '</div>'
+				 + '</div>'
+				 + '<div style="width:100%;height:12%;">'
+				 + '<p><!-- <span style="margin-left: 3%;">A-03摄像头</span> --><span style="margin-left: 15%;">' + data.jsonObj.taketime[i] +'</span></p>'
+			
+				 + '</div>'
+				 + '</div>'
+				 + '</li>';
+					
+			$("#record").append(contents);
+		 }
+		 $("#cameraname").text(data.jsonObj.camname);
+		
+	 }
+	 var dheight = $(".maquee").height();
+	  	var uheight = $("#record").height();
+	  	if(uheight > dheight  + 16){
+	  		 /* $('.maquee').liMarquee({
+	  			circular: false,
+	  			direction: 'down',//向上滚动
+	  			scrollamount: 16//滚动速度
+	  		});  */
+	  		window.clearInterval(timer1);
+	  		timer1 = setInterval('autoScroll(".maquee")',5000);
+	  	}
+	
+});
+	ajax.setAsync(false);
+	ajax.start();	
+};
+var timer2 = setInterval('loadData()',1000 * 30);
+
+	
+
+</script>
+
+</html>
